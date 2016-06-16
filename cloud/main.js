@@ -5,9 +5,10 @@ Parse.Cloud.define('hello', function(req, res) {
 
 Parse.Cloud.define("ios_install_count", function (request, response){
     Parse.Cloud.useMasterKey();
-    var query = new Parse.Query("_Installation");
+    var query = new Parse.Query(Parse.Installation);
     query.equalTo("deviceType","ios");
     query.count({
+        useMasterKey: true,
         success: function(count){
             response.success(count);
         },
@@ -22,6 +23,7 @@ Parse.Cloud.define("android_install_count", function (request, response){
     var query = new Parse.Query("_Installation");
     query.equalTo("deviceType","android");
     query.count({
+        useMasterKey: true,
         success: function(count){
             response.success(count);
         },
