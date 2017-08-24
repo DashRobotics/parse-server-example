@@ -29,7 +29,6 @@ var api = new ParseServer({
   appId: process.env.APP_ID || 'myAppId',
   masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
-  publicServerURL: process.env.PUBLIC_SERVER_URL || '', 
   clientKey: process.env.CLIENT_KEY || '', //Add your client key here. Keep it secret!
   liveQuery: {
     classNames: ["Program"] // List of classes to support for query subscriptions
@@ -42,15 +41,15 @@ var api = new ParseServer({
 
 var app = express();
 
+// force SSL
+app.use(forceSSL); 
+
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
-
-// force SSL
-app.use(forceSSL); 
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
