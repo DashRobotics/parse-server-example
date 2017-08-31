@@ -11,18 +11,6 @@ if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
-// source: https://github.com/parse-community/parse-server/issues/2412
-var forceSSL = function (req, res, next) {
-  // if the request arrives from the outside, and it was not received in https, and it's not a file request - block it
-  if (req.headers['host'] != internalHostHeader && // this cond could also be tested if we require x-forwarded-proto to be defined - since on access from localhost it's not.  but this is more explicit 
-      req.headers['x-forwarded-proto'] !== 'https' &&
-      !req.path.startsWith(filePathPrefix)) {
-    return res.status(403).send({message: 'SSL required'});
-  }
-  // otherwise, let it pass through
-  return next();
-};
-
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
@@ -41,11 +29,16 @@ var api = new ParseServer({
 
 var app = express();
 
-// force SSL
-app.use(forceSSL); 
-
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
+
+var forceSsl = function (req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+};
+app.use(forceSsl);
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
