@@ -32,16 +32,13 @@ var app = express();
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
-// var forceSsl = function (req, res, next) {
-//     if (req.headers['x-forwarded-proto'] !== 'https') {
-//         return res.redirect(['https://', req.get('Host'), req.url].join(''));
-//     }
-//     return next();
-// };
-
-// app.configure(function () {
-//     app.use(forceSsl);
-// }
+var forceSsl = function (req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+};
+app.use(forceSsl);
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
@@ -49,7 +46,7 @@ app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
-  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
+  res.status(200).send('There is nothing to see here.');
 });
 
 // There will be a test page available on the /test path of your server url
