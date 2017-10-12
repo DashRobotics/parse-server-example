@@ -3,6 +3,16 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
+
+Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
+    let isMaster = req.master;  // if the query is run with masterKey
+    if (!isMaster) {
+        let query = req.query;  // the Parse.Query
+        query.limit(1);
+    }
+});
+
+
 Parse.Cloud.define("ios_install_count", function (request, response){
     Parse.Cloud.useMasterKey();
     var query = new Parse.Query(Parse.Installation);
