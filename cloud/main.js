@@ -11,6 +11,7 @@ Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
         let where = query._where;
         console.log(where);
         console.log(typeof where);
+        console.log(where.uuid);
     }
 });
 
