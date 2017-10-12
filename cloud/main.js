@@ -9,7 +9,10 @@ Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
     if (!isMaster) {
         let query = req.query;  // the Parse.Query
         query.limit(1);
-        console.log('TEST PRINT :)');
+        console.log('**********');
+        console.log(query);
+        console.log(req.query);
+        console.log(req.query.where);
     }
 });
 
