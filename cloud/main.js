@@ -8,9 +8,10 @@ Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
     if (!isMaster) {
         let query = req.query;  // the Parse.Query
         query.limit(1);
-        console.log('**********');
-        console.log(query);
-        console.log(query._where);
+        let where = query.where;
+        console.log(where);
+        if "uuid" in where:
+            console.log('found uuid')
     }
 });
 
