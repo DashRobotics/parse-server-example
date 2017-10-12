@@ -9,11 +9,11 @@ Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
         let query = req.query;  // the Parse.Query
         query.limit(1);
         let where = query._where;
-        console.log(where);
-        console.log(typeof where);
-        console.log(where.uuid);
+        // console.log(where);
+        // console.log(typeof where);
+        // console.log(where.uuid);
         if ( typeof where.uuid == 'undefined' ) {
-            console.log('NO uuid')
+            // console.log('NO uuid')
             query._where.uuid = 'ABCDEF'
         }
     }
