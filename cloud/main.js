@@ -3,7 +3,6 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
-
 Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
     let isMaster = req.master;  // if the query is run with masterKey
     if (!isMaster) {
@@ -11,8 +10,7 @@ Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
         query.limit(1);
         console.log('**********');
         console.log(query);
-        console.log(req.query);
-        console.log(req.query.where);
+        console.log(query.where);
     }
 });
 
