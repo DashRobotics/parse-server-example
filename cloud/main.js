@@ -10,7 +10,7 @@ Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
         query.limit(1);
         console.log('**********');
         console.log(query);
-        console.log(query.where);
+        console.log(query._where);
     }
 });
 
