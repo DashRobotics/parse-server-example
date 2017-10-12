@@ -12,10 +12,9 @@ Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
         console.log(where);
         console.log(typeof where);
         console.log(where.uuid);
-        if !(where.uuid) {
+        if ( typeof where.uuid == 'undefined' ) {
             console.log('NO uuid')
         }
-    }
 });
 
 
