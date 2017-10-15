@@ -36,7 +36,7 @@ Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
   const MAX_PROGRAM_INSTRUCTIONS = 1000;
 
   // white list for Robot Names
-  const ALLOWABLE_NAMES = ["Scorpio", "Alpha", "Beta", "Gamma", "Delta"];
+  const ALLOWABLE_NAMES = ["Alpha", "Beta", "Gamma", "Delta"];
 
   // white list for Robot Program Instructions
   const ALLOWABLE_INSTRUCTIONS = ["lights_blue", "lights_green", "lights_purple", "lights_white"];
@@ -164,6 +164,19 @@ Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
     res.error(error);
   });
 });
+
+
+Parse.Cloud.beforeDelete("KG2RobotModel", function(req, res) {
+  let isMaster = req.master; // if the delete is run with masterKey
+  if (isMaster) {
+    // allow delete
+    res.success();
+  } else {
+    // deny delete
+    res.error("deletion requires masterKey");
+  }
+});
+
 
 
 Parse.Cloud.define("ios_install_count", function (request, response){
