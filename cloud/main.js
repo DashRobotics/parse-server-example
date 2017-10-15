@@ -3,20 +3,25 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
+
 Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
-    let isMaster = req.master;  // if the query is run with masterKey
-    if (!isMaster) {
-        let query = req.query;  // the Parse.Query
-        query.limit(1);
-        let where = query._where;
-        // console.log(where);
-        // console.log(typeof where);
-        // console.log(where.uuid);
-        if ( typeof where.uuid == 'undefined' ) {
-            // console.log('NO uuid')
-            query._where.uuid = 'ABCDEF'
-        }
+  let isMaster = req.master; // if the query is run with masterKey
+  if (!isMaster) {
+    let query = req.query; // the Parse.Query
+
+    // limit query to 1 result
+    query.limit(1);
+
+    // validate uuid query constraint
+    let uuidType = typeof query._where.uuid;
+    if (uuidType == 'undefined') {
+      // uuid not specified or is part of a compound query: deny find
+      throw new Parse.Error(101, 'uuid not specified');
+    } else if (uuidType != 'string') {
+      // uuid not a string or is not part of an exact match query: deny find
+      throw new Parse.Error(102, 'uuid not a string');
     }
+  }
 });
 
 
