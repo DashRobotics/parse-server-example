@@ -32,7 +32,7 @@ Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
   const MAX_PROGRAM_INSTRUCTIONS = 1000;
 
   // white list for robot names
-  const ALLOWABLE_NAMES = ["Atlasar™", "Bokken™", "Carus™", "Lina", "Manchu™", "Mantix™",
+  const ALLOWABLE_NAMES = ["Atlasar™", "Bokken™", "Carus™", "Lina™", "Manchu™", "Mantix™",
         "Musubi™", "Scarrax™", "Terrix™", "Vypod™",
         "Bitey", "Boomer", "Buggy McBugface", "Butterscotch", "Cupcake", "Dr. Bug", "Duke",
         "Fido", "Fluffy", "Frumblebug", "Katy", "Lucy", "Miss Buggy", "Princess", "Rex",
