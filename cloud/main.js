@@ -54,7 +54,7 @@ Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
   } else {
     // case if existing RobotModel object was updated
     // get before save RobotModel
-    const query = new Parse.Query("KG2RobotModel");
+    const query = new Parse.Query('KG2RobotModel');
     promise = query.get(robotModelId, {useMasterKey: true});
   }
 
