@@ -4,7 +4,7 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 
-Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
+Parse.Cloud.beforeFind("KG2RobotModel", function(req) {
     let isMaster = req.master;  // if the query is run with masterKey
     if (!isMaster) {
         let query = req.query;  // the Parse.Query
@@ -32,7 +32,7 @@ Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
   const MAX_PROGRAM_INSTRUCTIONS = 1000;
 
   // white list for robot names
-  const ALLOWABLE_NAMES = ["Alpha", "Beta", "Gamma", "Delta"];
+  const ALLOWABLE_NAMES = ["Scorpio", "Alpha", "Beta", "Gamma", "Delta"];
 
   // white list for robot program instructions
   const ALLOWABLE_INSTRUCTIONS = ["lights_blue", "lights_green", "lights_purple", "lights_white"];
