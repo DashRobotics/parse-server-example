@@ -32,10 +32,17 @@ Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
   const MAX_PROGRAM_INSTRUCTIONS = 1000;
 
   // white list for robot names
-  const ALLOWABLE_NAMES = ["Scorpio", "Alpha", "Beta", "Gamma", "Delta"];
+  const ALLOWABLE_NAMES = ["Atlasar™", "Bokken™", "Carus™", "Lina", "Manchu™", "Mantix™",
+        "Musubi™", "Scarrax™", "Terrix™", "Vypod™",
+        "Bitey", "Boomer", "Buggy McBugface", "Butterscotch", "Cupcake", "Dr. Bug", "Duke",
+        "Fido", "Fluffy", "Frumblebug", "Katy", "Lucy", "Miss Buggy", "Princess", "Rex",
+        "Shtompling", "Speedi", "Spot", "Stabby", "Tweedle", "Zippy"];
 
   // white list for robot program instructions
-  const ALLOWABLE_INSTRUCTIONS = ["lights_blue", "lights_green", "lights_purple", "lights_white"];
+  const ALLOWABLE_INSTRUCTIONS = ["run_forward", "run_forward_slow", "run_backward", "run_backward_slow",
+        "run_left", "run_right", "run_spin_left", "run_spin_right", "lights_red", "lights_blue",
+        "lights_green", "lights_purple", "lights_white", "lights_off",
+        "play_dance_music", "play_laser", "play_bell", "play_whistle"];
 
   let isMaster = req.master; // if the save is run with masterKey
   if (isMaster) {
