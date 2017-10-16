@@ -69,54 +69,6 @@ Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
       drivingTime = 0;
     }
 
-    if (prevRobotModel == null) {
-      // case if new RobotModel object was created
-      if (drivingDistance != 0) {
-        return Promise.reject("RobotModel object created with nonzero drivingDistance");
-      }
-
-      if (drivingTime != 0) {
-        return Promise.reject("RobotModel object created with nonzero drivingTime");
-      }
-    } else {
-      // case if existing RobotModel object was updated
-      // get before save values
-      let prevDrivingDistance = prevRobotModel.get("drivingDistance");
-      if (typeof prevDrivingDistance == 'undefined') {
-        prevDrivingDistance = 0;
-      }
-      let prevDrivingTime = prevRobotModel.get("drivingTime");
-      if (typeof prevDrivingTime == 'undefined') {
-        prevDrivingTime = 0;
-      }
-
-      // validate drivingDistance increment
-      let deltaDrivingDistance = drivingDistance - prevDrivingDistance;
-      if (deltaDrivingDistance < MIN_DRIVING_DISTANCE_INCREMENT) {
-        return Promise.reject("delta drivingDistance below minimum");
-      } else if (deltaDrivingDistance > MAX_DRIVING_DISTANCE_INCREMENT) {
-        return Promise.reject("delta drivingDistance exceeds maximum");
-      }
-
-      // validate drivingTime increment
-      let deltaDrivingTime = drivingTime - prevDrivingTime;
-      if (deltaDrivingTime < MIN_DRIVING_TIME_INCREMENT) {
-        return Promise.reject("delta drivingTime below minimum");
-      } else if (deltaDrivingTime > MAX_DRIVING_TIME_INCREMENT) {
-        return Promise.reject("delta drivingTime exceeds maximum");
-      }
-
-      // validate drivingRate for increment
-      if (deltaDrivingTime > 0) {
-        let drivingRate = deltaDrivingDistance / deltaDrivingTime;
-        if (drivingRate > MAX_DRIVING_RATE) {
-          return Promise.reject("drivingRate exceeds maximum");
-        }
-      } else if (deltaDrivingDistance > 0) {
-        return Promise.reject("drivingRate exceeds maximum");
-      }
-    }
-
     // validate robot name
     let name = robotModel.get("name");
     if (typeof name != 'string') {
