@@ -89,7 +89,7 @@ const robots = {
       canBeUndefined: true,
       canBeNull: false,
       minValue: 0,
-      maxValue: 345600,
+      maxValue: 3456000000,
       minValueChange: 0,
       maxValueChange: 345600
     },
@@ -99,7 +99,7 @@ const robots = {
       canBeUndefined: true,
       canBeNull: false,
       minValue: 0,
-      maxValue: 86400,
+      maxValue: 864000000,
       minValueChange: 0,
       maxValueChange: 86400
     },
@@ -169,18 +169,8 @@ const robots = {
       canBeNull: false,
       maxStringLength: 100,
       whitelist: [
-        "atlasar",
-        "bokken",
-        "carus",
-        "lina-r",
-        "lina-l",
-        "manchu",
-        "mantix",
-        "musubi",
-        "scarrax",
-        "terrix",
-        "vypod",
-        "new-robot"
+        "blue",
+        "indo"
       ]
     },
     {
@@ -190,37 +180,8 @@ const robots = {
       canBeNull: false,
       maxStringLength: 100,
       whitelist: [
-        "Atlasar™",
-        "Bokken™",
-        "Carus™",
-        "Lina™",
-        "Manchu™",
-        "Mantix™",
-        "Musubi™",
-        "Scarrax™",
-        "Terrix™",
-        "Vypod™",
-        "Bitey",
-        "Boomer",
-        "Buggy McBugface",
-        "Butterscotch",
-        "Cupcake",
-        "Dr. Bug",
-        "Duke",
-        "Fido",
-        "Fluffy",
-        "Frumblebug",
-        "Katy",
-        "Lucy",
-        "Miss Buggy",
-        "Princess",
-        "Rex",
-        "Shtompling",
-        "Speedi",
-        "Spot",
-        "Stabby",
-        "Tweedle",
-        "Zippy"
+        "Blue™",
+        "Indoraptor™"
       ]
     },
     {
@@ -237,7 +198,7 @@ const robots = {
       canBeUndefined: true,
       canBeNull: false,
       minValue: 0,
-      maxValue: 345600,
+      maxValue: 3456000000,
       minValueChange: 0,
       maxValueChange: 345600
     },
@@ -247,7 +208,7 @@ const robots = {
       canBeUndefined: true,
       canBeNull: false,
       minValue: 0,
-      maxValue: 86400,
+      maxValue: 864000000,
       minValueChange: 0,
       maxValueChange: 86400
     },
@@ -257,27 +218,7 @@ const robots = {
       canBeUndefined: true,
       canBeNull: false,
       maxArrayLength: 100,
-      maxStringLength: 100,
-      whitelist: [
-        "run_forward",
-        "run_forward_slow",
-        "run_backward",
-        "run_backward_slow",
-        "run_left",
-        "run_right",
-        "run_spin_left",
-        "run_spin_right",
-        "lights_red",
-        "lights_blue",
-        "lights_green",
-        "lights_purple",
-        "lights_white",
-        "lights_off",
-        "play_dance_music",
-        "play_laser",
-        "play_bell",
-        "play_whistle"
-      ]
+      maxStringLength: 100
     },
     {
       parameter: 'achievements',
