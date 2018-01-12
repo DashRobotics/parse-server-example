@@ -21,6 +21,7 @@ var api = new ParseServer({
   liveQuery: {
     classNames: ["Program"] // List of classes to support for query subscriptions
   },
+  logLevel: 'error',
   allowClientClassCreation: false
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
