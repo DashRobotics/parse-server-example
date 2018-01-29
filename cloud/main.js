@@ -218,7 +218,31 @@ const robots = {
       canBeUndefined: true,
       canBeNull: false,
       maxArrayLength: 100,
-      maxStringLength: 100
+      maxStringLength: 100,
+      whitelist: [
+        "run_forward",
+        "run_forward_slow",
+        "run_backward",
+        "run_backward_slow",
+        "run_left",
+        "run_right",
+        "swivel_left",
+        "swivel_right",
+        "swivel_forward",
+        "lights_red",
+        "lights_blue",
+        "lights_green",
+        "lights_purple",
+        "lights_white",
+        "lights_off",
+        "play_dance_music",
+        "play_dance_music1",
+        "play_dance_music2",
+        "play_dance_music3",
+        "play_attack1",
+        "play_attack2",
+        "play_bark"
+      ]
     },
     {
       parameter: 'achievements',
@@ -228,18 +252,10 @@ const robots = {
       maxArrayLength: 100,
       maxStringLength: 100,
       whitelist: [
-        "first-run",
-        "ran-197-feet",
-        "ran-300-feet",
-        "ran-455-feet",
-        "ran-750-feet",
-        "ran-1092-feet",
-        "ran-1454-feet",
-        "ran-1788-feet",
-        "ran-5280-feet",
-        "ran-10-minutes",
-        "ran-30-minutes",
-        "ran-60-minutes"
+        "charge-challenge-unlocked",
+        "dance-challenge-unlocked",
+        "sneak-challenge-unlocked",
+        "speed-challenge-unlocked"
       ]
     }
   ]
