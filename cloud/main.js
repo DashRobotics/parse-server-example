@@ -220,6 +220,17 @@ const robots = {
       maxArrayLength: 100,
       maxStringLength: 100,
       whitelist: [
+        "none"
+      ]
+    },
+    {
+      parameter: 'challenge1Program',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
         "run_forward",
         "run_forward_slow",
         "run_backward",
@@ -232,6 +243,40 @@ const robots = {
         "lights_red",
         "lights_blue",
         "lights_green",
+        "lights_yellow",
+        "lights_purple",
+        "lights_white",
+        "lights_off",
+        "play_dance_music",
+        "play_dance_music1",
+        "play_dance_music2",
+        "play_dance_music3",
+        "play_attack1",
+        "play_attack2",
+        "play_bark"
+      ]
+    },
+    {
+      parameter: 'challenge2Program',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
+        "run_forward",
+        "run_forward_slow",
+        "run_backward",
+        "run_backward_slow",
+        "run_left",
+        "run_right",
+        "swivel_left",
+        "swivel_right",
+        "swivel_forward",
+        "lights_red",
+        "lights_blue",
+        "lights_green",
+        "lights_yellow",
         "lights_purple",
         "lights_white",
         "lights_off",
