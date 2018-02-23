@@ -253,6 +253,7 @@ const robots = {
         "play_dance_music3",
         "play_attack1",
         "play_attack2",
+        "play_growl",
         "play_bark"
       ]
     },
@@ -286,6 +287,7 @@ const robots = {
         "play_dance_music3",
         "play_attack1",
         "play_attack2",
+        "play_growl",
         "play_bark"
       ]
     },
