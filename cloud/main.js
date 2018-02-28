@@ -316,17 +316,24 @@ function beforeFindValidator(req) {
 
     // limit query to 1 result
     query.limit(1);
-
-    // validate uuid query constraint
-    let uuidType = typeof query._where.uuid;
-    if (uuidType === 'undefined') {
-      // uuid not specified or is part of a compound query
-      // deny find
-      return new Parse.Error(101, 'uuid not specified');
-    } else if (uuidType !== 'string') {
-      // uuid not a string or is not part of an exact match query
-      // deny find
-      return new Parse.Error(102, 'uuid not a string');
+    
+    // check for objectId
+    let objectIdType = typeof query._where.objectId;
+    if (objectIdType === 'string') {
+      // great, let the GET through!
+      
+    } else {
+      // validate uuid query constraint
+      let uuidType = typeof query._where.uuid;
+      if (uuidType === 'undefined') {
+        // uuid not specified or is part of a compound query
+        // deny find
+        return new Parse.Error(101, 'uuid not specified');
+      } else if (uuidType !== 'string') {
+        // uuid not a string or is not part of an exact match query
+        // deny find
+        return new Parse.Error(102, 'uuid not a string');
+      }
     }
   }
 
