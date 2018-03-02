@@ -1,171 +1,483 @@
+const ParameterType = {
+  'STRING': 'string',
+  'NUMBER':  'number',
+  'STRING_ARRAY':  'stringArray'
+};
 
-Parse.Cloud.define('hello', function(req, res) {
-  res.success('Hi');
-});
 
-
-Parse.Cloud.beforeFind("KG2RobotModel", function(req) {
-    let isMaster = req.master;  // if the query is run with masterKey
-    if (!isMaster) {
-        let query = req.query;  // the Parse.Query
-        query.limit(1);
-        let uuidType = typeof query._where.uuid;
-        if (uuidType == 'undefined') {
-            // uuid not specified or is part of a compound query
-            throw new Parse.Error(101, 'uuid not specified');
-        } else if (uuidType != 'string') {
-            // uuid not a string or is not part of an exact match query
-            throw new Parse.Error(102, 'uuid not a string');
-        }
+const robots = {
+  'KG2RobotModel': [
+    {
+      parameter: 'uuid',
+      type: ParameterType.STRING,
+      canBeUndefined: false,
+      canBeNull: false,
+      maxStringLength: 100
+    },
+    {
+      parameter: 'iconName',
+      type: ParameterType.STRING,
+      canBeUndefined: false,
+      canBeNull: false,
+      maxStringLength: 100,
+      whitelist: [
+        "atlasar",
+        "bokken",
+        "carus",
+        "lina-r",
+        "lina-l",
+        "manchu",
+        "mantix",
+        "musubi",
+        "scarrax",
+        "terrix",
+        "vypod",
+        "new-robot"
+      ]
+    },
+    {
+      parameter: 'name',
+      type: ParameterType.STRING,
+      canBeUndefined: false,
+      canBeNull: false,
+      maxStringLength: 100,
+      whitelist: [
+        "Atlasar™",
+        "Bokken™",
+        "Carus™",
+        "Lina™",
+        "Manchu™",
+        "Mantix™",
+        "Musubi™",
+        "Scarrax™",
+        "Terrix™",
+        "Vypod™",
+        "Bitey",
+        "Boomer",
+        "Buggy McBugface",
+        "Butterscotch",
+        "Cupcake",
+        "Dr. Bug",
+        "Duke",
+        "Fido",
+        "Fluffy",
+        "Frumblebug",
+        "Katy",
+        "Lucy",
+        "Miss Buggy",
+        "Princess",
+        "Rex",
+        "Shtompling",
+        "Speedi",
+        "Spot",
+        "Stabby",
+        "Tweedle",
+        "Zippy"
+      ]
+    },
+    {
+      parameter: 'buildStep',
+      type: ParameterType.NUMBER,
+      canBeUndefined: true,
+      canBeNull: true,
+      minValue: 0,
+      maxValue: 1000
+    },
+    {
+      parameter: 'drivingDistance',
+      type: ParameterType.NUMBER,
+      canBeUndefined: true,
+      canBeNull: false,
+      minValue: 0,
+      maxValue: 3456000000,
+      minValueChange: 0,
+      maxValueChange: 345600
+    },
+    {
+      parameter: 'drivingTime',
+      type: ParameterType.NUMBER,
+      canBeUndefined: true,
+      canBeNull: false,
+      minValue: 0,
+      maxValue: 864000000,
+      minValueChange: 0,
+      maxValueChange: 86400
+    },
+    {
+      parameter: 'program',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
+        "run_forward",
+        "run_forward_slow",
+        "run_backward",
+        "run_backward_slow",
+        "run_left",
+        "run_right",
+        "run_spin_left",
+        "run_spin_right",
+        "lights_red",
+        "lights_blue",
+        "lights_green",
+        "lights_purple",
+        "lights_white",
+        "lights_off",
+        "play_dance_music",
+        "play_laser",
+        "play_bell",
+        "play_whistle"
+      ]
+    },
+    {
+      parameter: 'achievements',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
+        "first-run",
+        "ran-197-feet",
+        "ran-300-feet",
+        "ran-455-feet",
+        "ran-750-feet",
+        "ran-1092-feet",
+        "ran-1454-feet",
+        "ran-1788-feet",
+        "ran-5280-feet",
+        "ran-10-minutes",
+        "ran-30-minutes",
+        "ran-60-minutes"
+      ]
     }
+  ],
+  'KJWRobotModel': [
+    {
+      parameter: 'uuid',
+      type: ParameterType.STRING,
+      canBeUndefined: false,
+      canBeNull: false,
+      maxStringLength: 100
+    },
+    {
+      parameter: 'iconName',
+      type: ParameterType.STRING,
+      canBeUndefined: false,
+      canBeNull: false,
+      maxStringLength: 100,
+      whitelist: [
+        "blue",
+        "indo"
+      ]
+    },
+    {
+      parameter: 'name',
+      type: ParameterType.STRING,
+      canBeUndefined: false,
+      canBeNull: false,
+      maxStringLength: 100,
+      whitelist: [
+        "Blue™",
+        "Indoraptor™"
+      ]
+    },
+    {
+      parameter: 'buildStep',
+      type: ParameterType.NUMBER,
+      canBeUndefined: true,
+      canBeNull: true,
+      minValue: 0,
+      maxValue: 1000
+    },
+    {
+      parameter: 'drivingDistance',
+      type: ParameterType.NUMBER,
+      canBeUndefined: true,
+      canBeNull: false,
+      minValue: 0,
+      maxValue: 3456000000,
+      minValueChange: 0,
+      maxValueChange: 345600
+    },
+    {
+      parameter: 'drivingTime',
+      type: ParameterType.NUMBER,
+      canBeUndefined: true,
+      canBeNull: false,
+      minValue: 0,
+      maxValue: 864000000,
+      minValueChange: 0,
+      maxValueChange: 86400
+    },
+    {
+      parameter: 'program',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
+        "none"
+      ]
+    },
+    {
+      parameter: 'challenge1Program',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
+        "run_forward",
+        "run_forward_slow",
+        "run_backward",
+        "run_backward_slow",
+        "run_left",
+        "run_right",
+        "swivel_left",
+        "swivel_right",
+        "swivel_forward",
+        "lights_red",
+        "lights_blue",
+        "lights_green",
+        "lights_yellow",
+        "lights_purple",
+        "lights_white",
+        "lights_off",
+        "play_dance_music",
+        "play_dance_music1",
+        "play_dance_music2",
+        "play_dance_music3",
+        "play_attack1",
+        "play_attack2",
+        "play_growl",
+        "play_bark"
+      ]
+    },
+    {
+      parameter: 'challenge2Program',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
+        "run_forward",
+        "run_forward_slow",
+        "run_backward",
+        "run_backward_slow",
+        "run_left",
+        "run_right",
+        "swivel_left",
+        "swivel_right",
+        "swivel_forward",
+        "lights_red",
+        "lights_blue",
+        "lights_green",
+        "lights_yellow",
+        "lights_purple",
+        "lights_white",
+        "lights_off",
+        "play_dance_music",
+        "play_dance_music1",
+        "play_dance_music2",
+        "play_dance_music3",
+        "play_attack1",
+        "play_attack2",
+        "play_growl",
+        "play_bark"
+      ]
+    },
+    {
+      parameter: 'achievements',
+      type: ParameterType.STRING_ARRAY,
+      canBeUndefined: true,
+      canBeNull: false,
+      maxArrayLength: 100,
+      maxStringLength: 100,
+      whitelist: [
+        "charge-challenge-unlocked",
+        "dance-challenge-unlocked",
+        "sneak-challenge-unlocked",
+        "speed-challenge-unlocked"
+      ]
+    }
+  ]
+};
+
+
+function beforeFindValidator(req) {
+  let isMaster = req.master; // if the query is run with masterKey
+  if (!isMaster) {
+    let query = req.query; // the Parse.Query
+
+    // limit query to 1 result
+    query.limit(1);
+
+    // validate uuid query constraint
+    let uuidType = typeof query._where.uuid;
+    if (uuidType === 'undefined') {
+      // uuid not specified or is part of a compound query
+      // deny find
+      return new Parse.Error(101, 'uuid not specified');
+    } else if (uuidType !== 'string') {
+      // uuid not a string or is not part of an exact match query
+      // deny find
+      return new Parse.Error(102, 'uuid not a string');
+    }
+  }
+
+  return null;
+}
+
+
+function beforeSaveValidator(req) {
+  let isMaster = req.master; // if the save is run with masterKey
+  if (isMaster) {
+    return null;
+  }
+
+  let robotData = req.object;
+  let prevRobotData = req.original;
+  let robotType = robotData.className;
+  let validationParams = robots[robotType];
+
+  try {
+    validationParams.forEach(function(validationParam) {
+      let key = validationParam.parameter;
+
+      let value = robotData.get(key);
+
+      if (typeof value === 'undefined') {
+        if (!validationParam.canBeUndefined) {
+          throw (key + " is undefined");
+        }
+      } else if (value === null) {
+        if (!validationParam.canBeNull) {
+          throw (key + " is null");
+        }
+      } else {
+        switch (validationParam.type) {
+          case ParameterType.STRING:
+          if (typeof value !== 'string') {
+            throw (key + " is not a string");
+          }
+          let maxStringLength = validationParam.maxStringLength;
+          if (typeof maxStringLength !== 'undefined') {
+            if (value.length > maxStringLength) {
+              throw (key + " exceeds maxStringLength");
+            }
+          }
+          let whitelist = validationParam.whitelist;
+          if (typeof whitelist !== 'undefined') {
+            if (whitelist.indexOf(value) < 0) {
+              throw (key + " not in whitelist");
+            }
+          }
+          break;
+
+          case ParameterType.NUMBER:
+          if (typeof value !== 'number') {
+            throw (key + " is not a number");
+          }
+          let minValue = validationParam.minValue;
+          if (typeof minValue !== 'undefined') {
+            if (value < minValue) {
+              throw (key + " below minValue");
+            }
+          }
+          let maxValue = validationParam.maxValue;
+          if (typeof maxValue !== 'undefined') {
+            if (value > maxValue) {
+              throw (key + " exceeds maxValue");
+            }
+          }
+          let minValueChange = validationParam.minValueChange;
+          let maxValueChange = validationParam.maxValueChange;
+          if ((typeof minValueChange !== 'undefined') || (typeof maxValueChange !== 'undefined')) {
+            let prevValue = (typeof prevRobotData === 'undefined') ? 0 : prevRobotData.get(key);
+            let deltaValue = value - prevValue;
+            if (typeof minValueChange !== 'undefined') {
+              if (deltaValue < minValueChange) {
+                throw (key + " change below minValueChange");
+              }
+            }
+            if (typeof maxValueChange !== 'undefined') {
+              if (deltaValue > maxValueChange) {
+                throw (key + " change exceeds maxValueChange");
+              }
+            }
+          }
+          break;
+
+          case ParameterType.STRING_ARRAY:
+          if (value.constructor !== Array) {
+            throw (key + " is not an array");
+          }
+          let minArrayLength = validationParam.minArrayLength;
+          if (typeof minArrayLength !== 'undefined') {
+            if (value.length < minArrayLength) {
+              throw (key + " below minArrayLength");
+            }
+          }
+          let maxArrayLength = validationParam.maxArrayLength;
+          if (typeof maxArrayLength !== 'undefined') {
+            if (value.length > maxArrayLength) {
+              throw (key + " exceeds maxArrayLength");
+            }
+          }
+          value.forEach(function(element) {
+            if (typeof element !== 'string') {
+              throw (key + " element is not a string");
+            }
+            let maxStringLength = validationParam.maxStringLength;
+            if (typeof maxStringLength !== 'undefined') {
+              if (element.length > maxStringLength) {
+                throw (key + " element exceeds maxStringLength");
+              }
+            }
+            let whitelist = validationParam.whitelist;
+            if (typeof whitelist !== 'undefined') {
+              if (whitelist.indexOf(element) < 0) {
+                throw (key + " element not in whitelist");
+              }
+            }
+          });
+          break;
+        }
+      }
+    });
+
+    return null;
+  }
+  catch(error) {
+    return robotType + ": " + error;
+  }
+}
+
+
+Parse.Cloud.beforeFind('KG2RobotModel', function(req) {
+  let error = beforeFindValidator(req);
+  if (error !== null) {
+    // deny find
+    throw error;
+  }
+  // allow find
 });
 
 
 Parse.Cloud.beforeSave("KG2RobotModel", function(req, res) {
-  // validation constraints
-  const MIN_DRIVING_DISTANCE_INCREMENT = 0;
-  const MAX_DRIVING_DISTANCE_INCREMENT = 1000000000;
-  const MIN_DRIVING_TIME_INCREMENT = 0;
-  const MAX_DRIVING_TIME_INCREMENT = 1000000000;
-  const MAX_DRIVING_RATE = 10000;
-  const MAX_NAME_LENGTH = 1000;
-  const MAX_PROGRAM_INSTRUCTIONS = 1000;
-
-  // white list for robot names
-  const ALLOWABLE_NAMES = ["Atlasar™", "Bokken™", "Carus™", "Lina™", "Manchu™", "Mantix™",
-        "Musubi™", "Scarrax™", "Terrix™", "Vypod™",
-        "Bitey", "Boomer", "Buggy McBugface", "Butterscotch", "Cupcake", "Dr. Bug", "Duke",
-        "Fido", "Fluffy", "Frumblebug", "Katy", "Lucy", "Miss Buggy", "Princess", "Rex",
-        "Shtompling", "Speedi", "Spot", "Stabby", "Tweedle", "Zippy"];
-
-  // white list for robot program instructions
-  const ALLOWABLE_INSTRUCTIONS = ["run_forward", "run_forward_slow", "run_backward", "run_backward_slow",
-        "run_left", "run_right", "run_spin_left", "run_spin_right", "lights_red", "lights_blue",
-        "lights_green", "lights_purple", "lights_white", "lights_off",
-        "play_dance_music", "play_laser", "play_bell", "play_whistle"];
-
-  let isMaster = req.master; // if the save is run with masterKey
-  if (isMaster) {
+  let error = beforeSaveValidator(req);
+  if (error == null) {
     // allow save
     res.success();
-    return;
-  }
-
-  let robotModel = req.object;
-  let robotModelId = robotModel.id;
-
-  let promise;
-  if (typeof robotModelId == 'undefined') {
-    // case if new RobotModel object was created
-    promise = Promise.resolve(null);
   } else {
-    // case if existing RobotModel object was updated
-    // get before save RobotModel
-    const query = new Parse.Query("KG2RobotModel");
-    promise = query.get(robotModelId, {useMasterKey: true});
-  }
-
-  promise.then(function(prevRobotModel) {
-    // get after save values
-    let drivingDistance = robotModel.get("drivingDistance");
-    if (typeof drivingDistance == 'undefined') {
-      drivingDistance = 0;
-    }
-    let drivingTime = robotModel.get("drivingTime");
-    if (typeof drivingTime == 'undefined') {
-      drivingTime = 0;
-    }
-
-    if (prevRobotModel == null) {
-      // case if new RobotModel object was created
-      if (drivingDistance != 0) {
-        return Promise.reject("RobotModel object created with nonzero drivingDistance");
-      }
-
-      if (drivingTime != 0) {
-        return Promise.reject("RobotModel object created with nonzero drivingTime");
-      }
-    } else {
-      // case if existing RobotModel object was updated
-      // get before save values
-      let prevDrivingDistance = prevRobotModel.get("drivingDistance");
-      if (typeof prevDrivingDistance == 'undefined') {
-        prevDrivingDistance = 0;
-      }
-      let prevDrivingTime = prevRobotModel.get("drivingTime");
-      if (typeof prevDrivingTime == 'undefined') {
-        prevDrivingTime = 0;
-      }
-
-      // validate drivingDistance increment
-      let deltaDrivingDistance = drivingDistance - prevDrivingDistance;
-      if (deltaDrivingDistance < MIN_DRIVING_DISTANCE_INCREMENT) {
-        return Promise.reject("delta drivingDistance below minimum");
-      } else if (deltaDrivingDistance > MAX_DRIVING_DISTANCE_INCREMENT) {
-        return Promise.reject("delta drivingDistance exceeds maximum");
-      }
-
-      // validate drivingTime increment
-      let deltaDrivingTime = drivingTime - prevDrivingTime;
-      if (deltaDrivingTime < MIN_DRIVING_TIME_INCREMENT) {
-        return Promise.reject("delta drivingTime below minimum");
-      } else if (deltaDrivingTime > MAX_DRIVING_TIME_INCREMENT) {
-        return Promise.reject("delta drivingTime exceeds maximum");
-      }
-
-      // validate drivingRate for increment
-      if (deltaDrivingTime > 0) {
-        let drivingRate = deltaDrivingDistance / deltaDrivingTime;
-        if (drivingRate > MAX_DRIVING_RATE) {
-          return Promise.reject("drivingRate exceeds maximum");
-        }
-      } else if (deltaDrivingDistance > 0) {
-        return Promise.reject("drivingRate exceeds maximum");
-      }
-    }
-
-    // validate robot name
-    let name = robotModel.get("name");
-    if (typeof name != 'string') {
-      return Promise.reject("name is not specified or not a string");
-    } else if (name.length > MAX_NAME_LENGTH) {
-      return Promise.reject("name exceeds character limit");
-    } else if (ALLOWABLE_NAMES.indexOf(name) < 0) {
-      return Promise.reject("name not found in ALLOWABLE_NAMES");
-    }
-
-    // validate robot program
-    let program = robotModel.get("program");
-    if (typeof program != 'undefined') {
-      if (program.constructor !== Array) {
-        return Promise.reject("program is not an array");
-      }
-      if (program.length > MAX_PROGRAM_INSTRUCTIONS) {
-        return Promise.reject("program exceeds instruction limit");
-      }
-
-      // validate each robot program instruction
-      let error = null;
-      for (instruction of program) {
-        if (typeof instruction != 'string') {
-          error = "program instruction not a string";
-          break;
-        } else if (ALLOWABLE_INSTRUCTIONS.indexOf(instruction) < 0) {
-          error = "program instruction not found in ALLOWABLE_INSTRUCTIONS";
-          break;
-        }
-      }
-      if (error != null) {
-        return Promise.reject(error);
-      }
-    }
-  }).then(function() {
-    // allow save
-    res.success();
-  }, function(error) {
     // deny save
     res.error(error);
-  });
+  }
 });
 
 
@@ -181,32 +493,35 @@ Parse.Cloud.beforeDelete("KG2RobotModel", function(req, res) {
 });
 
 
-Parse.Cloud.define("ios_install_count", function (request, response){
-    Parse.Cloud.useMasterKey();
-    var query = new Parse.Query(Parse.Installation);
-    query.equalTo("deviceType","ios");
-    query.count({
-        useMasterKey: true,
-        success: function(count){
-            response.success(count);
-        },
-        error: function(error){
-            response.error(error);
-        }
-    });
+Parse.Cloud.beforeFind('KJWRobotModel', function(req) {
+  let error = beforeFindValidator(req);
+  if (error !== null) {
+    // deny find
+    throw error;
+  }
+  // allow find
 });
 
-Parse.Cloud.define("android_install_count", function (request, response){
-    Parse.Cloud.useMasterKey();
-    var query = new Parse.Query("_Installation");
-    query.equalTo("deviceType","android");
-    query.count({
-        useMasterKey: true,
-        success: function(count){
-            response.success(count);
-        },
-        error: function(error){
-            response.error(error);
-        }
-    });
+
+Parse.Cloud.beforeSave("KJWRobotModel", function(req, res) {
+  let error = beforeSaveValidator(req);
+  if (error == null) {
+    // allow save
+    res.success();
+  } else {
+    // deny save
+    res.error(error);
+  }
+});
+
+
+Parse.Cloud.beforeDelete("KJWRobotModel", function(req, res) {
+  let isMaster = req.master; // if the delete is run with masterKey
+  if (isMaster) {
+    // allow delete
+    res.success();
+  } else {
+    // deny delete
+    res.error("deletion requires masterKey");
+  }
 });
