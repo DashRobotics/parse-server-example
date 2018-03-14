@@ -181,7 +181,9 @@ const robots = {
       maxStringLength: 100,
       whitelist: [
         "Blue™",
-        "Indoraptor™"
+        "Indoraptor™",
+        "Blue",
+        "Indoraptor"
       ]
     },
     {
